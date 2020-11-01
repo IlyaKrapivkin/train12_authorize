@@ -2,34 +2,29 @@ const express = require('express');
 const mongoose = require('mongoose');
 
 const router = express.Router();
+const Student = require('../models/student');
+// const Book = require('../models/book');
 
-mongoose.connect('mongodb://localhost:27017/restdb', {
+mongoose.connect('mongodb://localhost:27017/studBook', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
 
-const UserSchema = mongoose.Schema({
-  name: { type: String, required: true },
-  date: { type: Date, default: Date.now() },
-});
-
-const User = mongoose.model('User', UserSchema);
-
-router.get('/users', async (req, res) => {
-  const allUsers = await User.find();
-  res.json(allUsers);
-});
+// router.get('/users', async (req, res) => {
+//   const allUsers = await Student.find();
+//   res.json(allUsers);
+// });
 
 router.post('/user', async (req, res) => {
-  const { name } = req.body;
-  const allUsers = await User.findOne({ name });
-  res.json(allUsers);
+  const { userName } = req.body;
+  const findedUser = await Student.findOne({ name: userName });
+  res.send(findedUser);
 });
 
 router.put('/users', async (req, res) => {
   const { name } = req.body;
   const date = req.body?.date;
-  const student = new User({ name, date });
+  const student = new Student({ name, date });
   try {
     await student.save();
   } catch (error) {
@@ -38,9 +33,5 @@ router.put('/users', async (req, res) => {
   }
   res.status(200).end();
 });
-
-// router.get('/users', (req, res, next) => {
-//   res.json({ name: 'Yastreb' });
-// });
 
 module.exports = router;

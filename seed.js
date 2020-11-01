@@ -20,13 +20,11 @@ const niko = new Student({
   phone: '+123',
   books: [],
 });
-
 const marko = new Student({
   name: 'Marko',
   phone: '+456',
   books: [],
 });
-
 const petro = new Student({
   name: 'Petro',
   phone: '+789',
@@ -37,12 +35,10 @@ const book1 = new Book({
   title: 'Eugeniy Pechenkin',
   author: 'Pufkin',
 });
-
 const book2 = new Book({
   title: 'Maskva Pitushki',
   author: 'Erofey',
 });
-
 const book3 = new Book({
   title: 'Moya zhyzn',
   author: 'Bender',
