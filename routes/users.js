@@ -22,9 +22,8 @@ router.post('/user', async (req, res) => {
 });
 
 router.put('/users', async (req, res) => {
-  const { name } = req.body;
-  const date = req.body?.date;
-  const student = new Student({ name, date });
+  const { name, phone } = req.body;
+  const student = new Student({ name, phone });
   try {
     await student.save();
   } catch (error) {
