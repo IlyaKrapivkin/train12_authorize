@@ -20,6 +20,14 @@ router.use(session({
   cookie: { secure: false, httpOnly: true, key: 'kukaAutho' },
   store: new MongoStore({ mongooseConnection: mongoose.createConnection('mongodb://localhost:27017/studBook', { useNewUrlParser: true, useUnifiedTopology: true }) }),
 }));
+// MIDDLES:
+router.use((req, res, next) => {
+  console.log(req.session);
+  if (req.session.username) {
+    res.locals.username = req.session.username;
+  }
+  next();
+});
 // CODE:
 router.get('/', (req, res) => {
   res.render('loginTrue');
