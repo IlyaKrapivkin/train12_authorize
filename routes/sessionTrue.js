@@ -2,6 +2,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
 // CONSTS:
 const router = express.Router();
 
@@ -17,6 +18,7 @@ router.use(session({
   resave: false,
   saveUninitialized: true,
   cookie: { secure: false, httpOnly: true },
+  store: new MongoStore({ mongooseConnection: mongoose.createConnection('mongodb://localhost:27017/studBook', { useNewUrlParser: true, useUnifiedTopology: true }) }),
 }));
 // CODE:
 router.get('/', (req, res) => {
@@ -28,6 +30,7 @@ router.post('/loginTrue', async (req, res) => {
   const user = await Student.findOne({ name: userName });
   if (user) {
     if (user.phone === userPhone) {
+      req.session.username = user.name;
       res.redirect(`profileTrue/${user.id}`);
     } else {
       res.render('loginTrue', { message: 'you have another phone!' });
