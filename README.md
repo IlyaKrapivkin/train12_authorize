@@ -1,6 +1,6 @@
 # About
 Simple app for testing authorise/login mechanics of Express application.  
-![app demo](readme-assets/demo.gif)
+![app demo](readme-assets/demo.png)
 # Stack
 Node.js server on Express, handlebars, MongoDB
 # Installation
